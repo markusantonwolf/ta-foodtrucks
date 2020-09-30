@@ -35,35 +35,71 @@ You can see a real world example on this page: <https://api.craftplaces.com/en/b
 
 ## Options
 
-    ```javascript
+```javascript
+
+    // endpoint url - based on Craftplaces APi service
     init('https://api.craftplaces.com/api/v1/dip/location/twodays', {
-        // endpoint url - based on Craftplaces APi service
-        today: 'Today', // define a translation for the relative date
-        tomorrow: 'Tomorrow', // define a translation for the relative date
-        locale: 'en-US', // define a locale for the visitor - shows the right dates and numbers
-        seperator: ' - ', // seperator between start and end time
-        suffix: '', // suffix after end time
+        
+        // define a translation for the relative date
+        today: 'Today',
+        
+        // define a translation for the relative date
+        tomorrow: 'Tomorrow',
+        
+        // define a locale for the visitor - shows the right dates and numbers
+        locale: 'en-US',
+        
+        // seperator between start and end time
+        seperator: ' - ',
+        
+        // suffix after end time
+        suffix: '', 
+        
     })
-    ```
+    
+```
 
 ## Functions and data
 
-    ```javascript
+```javascript
+
     {
-        initialized: false, // if plugin is initialized
-        empty: false, // if there are no dates available
+        // if plugin is initialized
+        initialized: false,
+        
+        // if there are no dates available
+        empty: false,
     }
     
-    getStartTime(index) // get the start time for the index - dates[index]
-    getEndTime(index) // get the end time for the index - dates[index]
-    getTime(index, seperator = null, suffix = null) // get the start and end time for the index - dates[index] - seperator and suffix will be default if there is no definition in the function call
-    getTimezone(index) // get the timezone for this index - dates[index]
-    getWeekday(index, relative = false) // get the weekday and define if relative or not
-    getDay(index) // get locale day for the index - dates[index]
-    getAddress(index) // get street, number and city for the index - dates[index]
-    getWhat3WordsLink(index) // get what3words link for the index - dates[index]
-    getGoogleMapsLink(index) // get google maps link for the index - dates[index]
-    ```
+    // get the start time for the index - dates[index]
+    getStartTime(index)
+    
+    // get the end time for the index - dates[index]
+    getEndTime(index)
+    
+    // get the start and end time for the index - dates[index] - seperator and suffix
+    // will be default if there is no definition in the function call
+    getTime(index, seperator = null, suffix = null) 
+    
+    // get the timezone for this index - dates[index]
+    getTimezone(index) 
+    
+    // get the weekday and define if relative or not
+    getWeekday(index, relative = false) 
+    
+    // get locale day for the index - dates[index]
+    getDay(index) 
+    
+    // get street, number and city for the index - dates[index]
+    getAddress(index) 
+    
+    // get what3words link for the index - dates[index]
+    getWhat3WordsLink(index) 
+    
+    // get google maps link for the index - dates[index]
+    getGoogleMapsLink(index) 
+    
+```
 
 ## More TA StyledPlugins
 
