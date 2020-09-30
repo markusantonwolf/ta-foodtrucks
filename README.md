@@ -36,27 +36,23 @@ You can see a real world example on this page: <https://api.craftplaces.com/en/b
 ## Options
 
 ```javascript
+// endpoint url - based on Craftplaces Api service
+init('https://api.craftplaces.com/api/v1/dip/location/twodays', {
+    // define a translation for the relative date
+    today: 'Today',
 
-    // endpoint url - based on Craftplaces Api service
-    init('https://api.craftplaces.com/api/v1/dip/location/twodays', {
-        
-        // define a translation for the relative date
-        today: 'Today',
-        
-        // define a translation for the relative date
-        tomorrow: 'Tomorrow',
-        
-        // define a locale for the visitor - shows the right dates and numbers
-        locale: 'en-US',
-        
-        // seperator between start and end time
-        seperator: ' - ',
-        
-        // suffix after end time
-        suffix: '', 
-        
-    })
-    
+    // define a translation for the relative date
+    tomorrow: 'Tomorrow',
+
+    // define a locale for the visitor - shows the right dates and numbers
+    locale: 'en-US',
+
+    // seperator between start and end time
+    seperator: ' - ',
+
+    // suffix after end time
+    suffix: '',
+})
 ```
 
 ## Functions and data
@@ -66,39 +62,39 @@ You can see a real world example on this page: <https://api.craftplaces.com/en/b
     {
         // if plugin is initialized
         initialized: false,
-        
+
         // if there are no dates available
         empty: false,
     }
-    
+
     // get the start time for the index - dates[index]
     getStartTime(index)
-    
+
     // get the end time for the index - dates[index]
     getEndTime(index)
-    
+
     // get the start and end time for the index - dates[index] - seperator and suffix
     // will be default if there is no definition in the function call
-    getTime(index, seperator = null, suffix = null) 
-    
+    getTime(index, seperator = null, suffix = null)
+
     // get the timezone for this index - dates[index]
-    getTimezone(index) 
-    
+    getTimezone(index)
+
     // get the weekday and define if relative or not
-    getWeekday(index, relative = false) 
-    
+    getWeekday(index, relative = false)
+
     // get locale day for the index - dates[index]
-    getDay(index) 
-    
+    getDay(index)
+
     // get street, number and city for the index - dates[index]
-    getAddress(index) 
-    
+    getAddress(index)
+
     // get what3words link for the index - dates[index]
-    getWhat3WordsLink(index) 
-    
+    getWhat3WordsLink(index)
+
     // get google maps link for the index - dates[index]
-    getGoogleMapsLink(index) 
-    
+    getGoogleMapsLink(index)
+
 ```
 
 ## More TA StyledPlugins
@@ -106,8 +102,7 @@ You can see a real world example on this page: <https://api.craftplaces.com/en/b
 -   [TA-Gallery](https://github.com/markusantonwolf/ta-gallery) - An image gallery with endless animation options.
 -   [TA-Pagination](https://github.com/markusantonwolf/ta-pagination) - A content pagination solution.
 -   [TA-Youtube](https://github.com/markusantonwolf/ta-youtube) - A YouTube video wrapper with auto playback and aspect ratio for the video player.
--   [TA-Analytics](https://github.com/markusantonwolf/ta-analytics) - A plugin for every website that needs to have an easy and customizable Google Analytics
-    “blocker”.
+-   [TA-Analytics](https://github.com/markusantonwolf/ta-analytics) - A plugin for every website that needs to have an easy and customizable Google Analytics “blocker”.
 
 ## Local development
 
@@ -131,7 +126,7 @@ npm run build
 
 ## Licence
 
-TA Gallery is released under the [MIT license](https://github.com/markusantonwolf/ta-gallery/blob/master/licence.md) & supports modern environments.
+TA Foodtrucks is released under the [MIT license](https://github.com/markusantonwolf/ta-foodtrucks/blob/master/licence.md) & supports modern environments.
 
 ## Copyright
 
