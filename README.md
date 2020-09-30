@@ -33,6 +33,23 @@ You can see a real world example on this page: <https://api.craftplaces.com/en/b
 -   Alpine JS + TA-Foodtrucks bundle size: 30.4 kByte
 -   Use of Alpine JS and Tailwind CSS
 
+## CDN
+
+### TA-Foodtrucks
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/markusantonwolf/ta-foodtrucks@1.0/dist/scripts/ta-foodtrucks.min.js"></script>
+```
+
+### Alpine JS + TA-Foodtrucks
+
+```html
+<script
+    src="https://cdn.jsdelivr.net/gh/markusantonwolf/ta-foodtrucks@1.0/dist/scripts/alpine-ta-foodtrucks.min.js"
+    defer
+></script>
+```
+
 ## Options
 
 ```javascript
