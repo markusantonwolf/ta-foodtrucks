@@ -38,14 +38,14 @@ You can see a real world example on this page: <https://api.craftplaces.com/en/b
 ### TA-Foodtrucks
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/markusantonwolf/ta-foodtrucks@1.0/dist/scripts/ta-foodtrucks.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/markusantonwolf/ta-foodtrucks@latest/dist/scripts/ta-foodtrucks.min.js"></script>
 ```
 
 ### Alpine JS + TA-Foodtrucks
 
 ```html
 <script
-    src="https://cdn.jsdelivr.net/gh/markusantonwolf/ta-foodtrucks@1.0/dist/scripts/alpine-ta-foodtrucks.min.js"
+    src="https://cdn.jsdelivr.net/gh/markusantonwolf/ta-foodtrucks@latest/dist/scripts/alpine-ta-foodtrucks.min.js"
     defer
 ></script>
 ```
