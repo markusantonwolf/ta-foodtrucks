@@ -37,7 +37,7 @@ You can see a real world example on this page: <https://api.craftplaces.com/en/b
 
 ```javascript
 
-    // endpoint url - based on Craftplaces APi service
+    // endpoint url - based on Craftplaces Api service
     init('https://api.craftplaces.com/api/v1/dip/location/twodays', {
         
         // define a translation for the relative date
