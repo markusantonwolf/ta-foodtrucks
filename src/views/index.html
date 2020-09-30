@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TA-Foodtrucks</title>
+        <link href="/css/styles.css" rel="stylesheet" />
+        <script src="/js/alpine.min.js" defer></script>
+    </head>
+    <body class="bg-white font-sans leading-loose tracking-wide text-base text-gray-900 font-light hyphens antialiased">
+        <div class="flex flex-col min-h-screen">
+            <div class="flex-grow">
+                <div class="container mx-auto text-center text-xl font-light my-6">
+                    <div class="md:w-2/3 leading-normal text-xl font-normal mx-auto px-5 sm:px-2 mb-12">
+                        <h1 class="mx-auto w-1/2 my-8">
+                            <img src="/img/logo-ta-foodtrucks.png" alt="Logo TA Foodtrucks" class="w-full" />
+                        </h1>
+                        <p class="my-4">
+                            TA-Foodtrucks uses the Craftplaces Api demo data to show the next food truck and street food
+                            dates in your area. You can customize the endpoints to get all dates for a specific vendor,
+                            for a specific city or just for a location you are interested in.
+                        </p>
+                        <p class="my-4">
+                            TA-Foodtrucks is 100% customizable and has endless animation options. You can use
+                            TA-Foodtrucks as a stand-alone version as well as a part of your Alpine JS and Tailwind CSS
+                            project. TA-Foodtrucks is designed to fit in every project, in every grid and in every
+                            flexbox so please try it out and if you have some feedback - leave me a message:
+                            @markusantonwolf / Twitter.
+                        </p>
+                        <p class="my-4">
+                            <a
+                                class="inline-block text-pink-800 font-semibold hover:text-black hover:underline mx-2"
+                                href="https://api.craftplaces.com/en/benefits"
+                                target="_blank"
+                                >REAL LIFE</a
+                            >
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-center sm:border-2 border-gray-400 sm:rounded-lg p-4 sm:p-20">
+                        @@include('../snippets/ta-foodtrucks.html')
+                    </div>
+                </div>
+            </div>
+            <div class="w-full bg-gray-200">
+                <div class="max-w-2xl w-full lg:w-1/2 leading-normal text-xl font-light mx-auto py-12 px-8">
+                    <div class="mx-auto w-1/2 my-8">
+                        <img src="/img/logo-ta-styled-plugins.png" alt="Logo TA StyledPLUGINS" class="w-full" />
+                    </div>
+                    <p class="pb-4">
+                        TA StylesPLUGINS stands for light-weight, responsive and mobile first. All plugins are based on
+                        Tailwind CSS and Alpine JS. All are 100% customizable with endless animation options.
+                    </p>
+                    <p class="pb-4">
+                        <a
+                            href="https://github.com/markusantonwolf/ta-gallery"
+                            target="_blank"
+                            class="text-pink-800 hover:text-black hover:underline font-semibold"
+                            >TA-Gallery</a
+                        >
+                        - An image gallery with endless animation options.
+                    </p>
+                    <p class="pb-4">
+                        <a
+                            href="https://github.com/markusantonwolf/ta-pagination"
+                            target="_blank"
+                            class="text-pink-800 hover:text-black hover:underline font-semibold"
+                            >TA-Pagination</a
+                        >
+                        - An content pagination solution with endless animation options.
+                    </p>
+                    <p class="pb-4">
+                        <a
+                            href="https://github.com/markusantonwolf/ta-youtube"
+                            target="_blank"
+                            class="text-pink-800 hover:text-black hover:underline font-semibold"
+                            >TA-YouTube</a
+                        >
+                        - A YouTube video wrapper with auto playback and aspect ratio for the video player.
+                    </p>
+                    <p class="pb-4">
+                        <a
+                            href="https://github.com/markusantonwolf/ta-analytics"
+                            target="_blank"
+                            class="text-pink-800 hover:text-black hover:underline font-semibold"
+                            >TA-Analytics</a
+                        >
+                        - A plugin for every website that needs to have an easy and customizable Google Analytics
+                        “blocker”.
+                    </p>
+                </div>
+            </div>
+            <div class="bg-blue-900 text-white font-bold">
+                <div class="container mx-auto py-6 text-center">
+                    <p class="text-xs mx-2">
+                        Licensed under the MIT license, see
+                        <a
+                            href="https://github.com/markusantonwolf/ta-foodtrucks/blob/master/licence.md"
+                            target="_blank"
+                            >LICENSE.md</a
+                        >
+                        for details.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <script src="/js/ta-foodtrucks.js"></script>
+    </body>
+</html>

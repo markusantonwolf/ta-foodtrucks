@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TA-Foodtrucks</title>
+        <link href="/css/styles.css" rel="stylesheet" />
+        <script src="/js/alpine.min.js" defer></script>
+    </head>
+    <body class="bg-white font-sans leading-loose tracking-wide text-base text-gray-900 font-light hyphens antialiased">
+        <div class="flex flex-col min-h-screen">
+            <div class="flex-grow">
+                <div class="container mx-auto text-center text-xl font-light my-6">
+                    <div class="md:w-2/3 leading-normal text-xl font-normal mx-auto px-5 sm:px-2 mb-12">
+                        <h1 class="mx-auto w-1/2 my-8">
+                            <img src="/img/logo-ta-foodtrucks.png" alt="Logo TA Foodtrucks" class="w-full" />
+                        </h1>
+                        <p class="my-4">
+                            TA-Foodtrucks uses the Craftplaces Api demo data to show the next food truck and street food
+                            dates in your area. You can customize the endpoints to get all dates for a specific vendor,
+                            for a specific city or just for a location you are interested in.
+                        </p>
+                        <p class="my-4">
+                            TA-Foodtrucks is 100% customizable and has endless animation options. You can use
+                            TA-Foodtrucks as a stand-alone version as well as a part of your Alpine JS and Tailwind CSS
+                            project. TA-Foodtrucks is designed to fit in every project, in every grid and in every
+                            flexbox so please try it out and if you have some feedback - leave me a message:
+                            @markusantonwolf / Twitter.
+                        </p>
+                        <p class="my-4">
+                            <a
+                                class="inline-block text-pink-800 font-semibold hover:text-black hover:underline mx-2"
+                                href="https://api.craftplaces.com/en/benefits"
+                                target="_blank"
+                                >REAL LIFE</a
+                            >
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-center sm:border-2 border-gray-400 sm:rounded-lg p-4 sm:p-20">
+                        <div
+    class="relative w-full lg:w-3/4 mx-auto bg-white rounded-lg text-left min-h-64 px-12 py-8"
+    x-data="taFoodtrucks()"
+    x-init="init('https://api.craftplaces.com/api/v1/dip/location/twodays', {locale:'de-DE', today: 'Heute', tomorrow: 'Morgen', seperator: ' - ', suffix: ' Uhr'})"
+    x-cloak
+>
+    <div
+        class="absolute flex items-center justify-center inset-0 w-full h-full text-gray-400 z-5"
+        x-show="!initialized"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" class="fill-current h-24 w-24" viewBox="0 0 100 100">
+            <path
+                d="M27.136 52.495c1.377 12.625 12.734 21.747 25.359 20.37s21.747-12.735 20.37-25.36m-3.878.423c1.14 10.438-6.378 19.91-16.915 21.06s-19.92-6.478-21.06-16.916"
+            >
+                <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    dur="1s"
+                    from="0 50 50"
+                    to="360 50 50"
+                    repeatCount="indefinite"
+                />
+            </path>
+        </svg>
+    </div>
+    <div class="absolute flex-center inset-0 w-full h-full z-5" x-show="initialized && empty">
+        Sorry, no dates available at the moment...
+    </div>
+    <template x-for="(item, index) in dates" :key="item.id" x-if="initialized && !empty">
+        <div class="grid gap-4 grid-col-1 sm:grid-cols-4 items-center py-8">
+            <div class="relative rounded-full w-32 h-32 overflow-hidden border-2 border-cool-gray-200 mx-auto">
+                <img :src="item.logo.url.local" alt="asdas" class="absolute inset-0 h-full w-full object-cover" />
+            </div>
+            <div class="sm:col-span-3 leading-tight">
+                <h4
+                    class="text-md text-blue-600 font-normal border-b-2 border-dashed border-cool-gray-300 -ml-2 pl-2 pb-2 mb-1"
+                >
+                    <span x-text="getWeekday(index, true)"></span>,
+                    <span x-text="getDay(index)"></span>
+                </h4>
+                <h3 class="text-4xl font-light -ml-1">
+                    <span x-text="getTime(index, ' - ', 'Uhr')"></span>
+                </h3>
+                <p class="text-base font-light mb-2">
+                    <span x-text="item.name"></span>
+                    : <span x-text="item.location.address.street"></span>
+                    <span x-text="item.location.address.number"></span>,
+                    <span x-text="item.location.address.city"></span>
+                </p>
+                <p class="text-base font-light mb-4">
+                    <span class="font-normal" x-text="item.vendor.name.long"></span>:
+                    <span x-text="item.vendor.offer"></span>
+                </p>
+                <div class="w-full flex flex-wrap justify-between font-normal text-sm">
+                    <div class="flex flex-wrap items-center my-2">
+                        <a
+                            :href="getWhat3WordsLink(index)"
+                            class="inline-flex text-sm text-pink-800 font-bold items-center"
+                            target="_blank"
+                        >
+                            <svg class="fill-current h-4" viewBox="0 0 576 512">
+                                <path
+                                    d="M288 0c-69.59 0-126 56.41-126 126 0 56.26 82.35 158.8 113.9 196.02 6.39 7.54 17.82 7.54 24.2 0C331.65 284.8 414 182.26 414 126 414 56.41 357.59 0 288 0zm0 168c-23.2 0-42-18.8-42-42s18.8-42 42-42 42 18.8 42 42-18.8 42-42 42zM20.12 215.95A32.006 32.006 0 0 0 0 245.66v250.32c0 11.32 11.43 19.06 21.94 14.86L160 448V214.92c-8.84-15.98-16.07-31.54-21.25-46.42L20.12 215.95zM288 359.67c-14.07 0-27.38-6.18-36.51-16.96-19.66-23.2-40.57-49.62-59.49-76.72v182l192 64V266c-18.92 27.09-39.82 53.52-59.49 76.72-9.13 10.77-22.44 16.95-36.51 16.95zm266.06-198.51L416 224v288l139.88-55.95A31.996 31.996 0 0 0 576 426.34V176.02c0-11.32-11.43-19.06-21.94-14.86z"
+                                />
+                            </svg>
+                            <span class="ml-1"> What3Words </span></a
+                        >
+                        <span class="ml-2"> (<span x-text="item.location.position.what3words"></span>) </span>
+                    </div>
+                    <a
+                        :href="getGoogleMapsLink(index)"
+                        class="inline-flex text-sm text-pink-800 font-bold items-center my-2"
+                        target="_blank"
+                    >
+                        <svg class="fill-current h-4" viewBox="0 0 384 512">
+                            <path
+                                d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"
+                            />
+                        </svg>
+                        <span class="ml-1"> Google Maps </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </template>
+</div>
+<style>
+    [x-cloak] {
+        display: none;
+    }
+</style>
+
+                    </div>
+                </div>
+            </div>
+            <div class="w-full bg-gray-200">
+                <div class="max-w-2xl w-full lg:w-1/2 leading-normal text-xl font-light mx-auto py-12 px-8">
+                    <div class="mx-auto w-1/2 my-8">
+                        <img src="/img/logo-ta-styled-plugins.png" alt="Logo TA StyledPLUGINS" class="w-full" />
+                    </div>
+                    <p class="pb-4">
+                        TA StylesPLUGINS stands for light-weight, responsive and mobile first. All plugins are based on
+                        Tailwind CSS and Alpine JS. All are 100% customizable with endless animation options.
+                    </p>
+                    <p class="pb-4">
+                        <a
+                            href="https://github.com/markusantonwolf/ta-gallery"
+                            target="_blank"
+                            class="text-pink-800 hover:text-black hover:underline font-semibold"
+                            >TA-Gallery</a
+                        >
+                        - An image gallery with endless animation options.
+                    </p>
+                    <p class="pb-4">
+                        <a
+                            href="https://github.com/markusantonwolf/ta-pagination"
+                            target="_blank"
+                            class="text-pink-800 hover:text-black hover:underline font-semibold"
+                            >TA-Pagination</a
+                        >
+                        - An content pagination solution with endless animation options.
+                    </p>
+                    <p class="pb-4">
+                        <a
+                            href="https://github.com/markusantonwolf/ta-youtube"
+                            target="_blank"
+                            class="text-pink-800 hover:text-black hover:underline font-semibold"
+                            >TA-YouTube</a
+                        >
+                        - A YouTube video wrapper with auto playback and aspect ratio for the video player.
+                    </p>
+                    <p class="pb-4">
+                        <a
+                            href="https://github.com/markusantonwolf/ta-analytics"
+                            target="_blank"
+                            class="text-pink-800 hover:text-black hover:underline font-semibold"
+                            >TA-Analytics</a
+                        >
+                        - A plugin for every website that needs to have an easy and customizable Google Analytics
+                        “blocker”.
+                    </p>
+                </div>
+            </div>
+            <div class="bg-blue-900 text-white font-bold">
+                <div class="container mx-auto py-6 text-center">
+                    <p class="text-xs mx-2">
+                        Licensed under the MIT license, see
+                        <a
+                            href="https://github.com/markusantonwolf/ta-foodtrucks/blob/master/licence.md"
+                            target="_blank"
+                            >LICENSE.md</a
+                        >
+                        for details.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <script src="/js/ta-foodtrucks.js"></script>
+    </body>
+</html>
