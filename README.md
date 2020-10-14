@@ -50,6 +50,14 @@ You can see a real world example on this page: <https://api.craftplaces.com/en/b
 ></script>
 ```
 
+## All TA StyledPlugins
+
+-   [TA-Gallery](https://github.com/markusantonwolf/ta-gallery) - An image gallery with endless animation options.
+-   [TA-Pagination](https://github.com/markusantonwolf/ta-pagination) - A content pagination solution.
+-   [TA-Youtube](https://github.com/markusantonwolf/ta-youtube) - A YouTube video wrapper with auto playback and aspect ratio for the video player.
+-   [TA-Analytics](https://github.com/markusantonwolf/ta-analytics) - A plugin for every website that needs to have an easy and customizable Google Analytics “blocker”.
+-   [TA-Foodtrucks](https://github.com/markusantonwolf/ta-foodtrucks) - A plugin to show the next food truck and street food dates in your area.
+
 ## Options
 
 ```javascript
@@ -113,13 +121,6 @@ init('https://api.craftplaces.com/api/v1/dip/location/twodays', {
     getGoogleMapsLink(index)
 
 ```
-
-## More TA StyledPlugins
-
--   [TA-Gallery](https://github.com/markusantonwolf/ta-gallery) - An image gallery with endless animation options.
--   [TA-Pagination](https://github.com/markusantonwolf/ta-pagination) - A content pagination solution.
--   [TA-Youtube](https://github.com/markusantonwolf/ta-youtube) - A YouTube video wrapper with auto playback and aspect ratio for the video player.
--   [TA-Analytics](https://github.com/markusantonwolf/ta-analytics) - A plugin for every website that needs to have an easy and customizable Google Analytics “blocker”.
 
 ## Local development
 
