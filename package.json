@@ -2,7 +2,7 @@
   "name": "ta-foodtrucks",
   "version": "1.0.0",
   "description": "TA StylesPLUGINS stands for light-weight, responsive and mobile first. All plugins are based on Tailwind CSS and Alpine JS. All are 100% customizable with endless animation options.",
-  "main": "tailwind.config.js",
+  "main": "./dist/scripts/ta-foodtrucks.min.js",
   "scripts": {
     "develop": "npx gulp build",
     "build": "NODE_ENV=production npx gulp build",
