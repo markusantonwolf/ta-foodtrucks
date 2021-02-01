@@ -50,19 +50,63 @@ You can see a real world example on this page: <https://api.craftplaces.com/en/b
 ></script>
 ```
 
-## All TA StyledPlugins
+## Installation
 
--   [TA-Gallery](https://github.com/markusantonwolf/ta-gallery) - An image gallery with endless animation options.
--   [TA-Pagination](https://github.com/markusantonwolf/ta-pagination) - A content pagination solution.
--   [TA-Youtube](https://github.com/markusantonwolf/ta-youtube) - A YouTube video wrapper with auto playback and aspect ratio for the video player.
--   [TA-Analytics](https://github.com/markusantonwolf/ta-analytics) - A plugin for every website that needs to have an easy and customizable Google Analytics “blocker”.
--   [TA-Foodtrucks](https://github.com/markusantonwolf/ta-foodtrucks) - A plugin to show the next food truck and street food dates in your area.
+### 1. Install the Tailwind CSS Custom Color Palette plugin:
+
+```bash
+# Install using npm
+npm install --save-dev @markusantonwolf/ta-foodtrucks
+
+# Install using yarn
+yarn add -D @markusantonwolf/ta-foodtrucks
+```
+
+### 2. Add it to your `tailwind.config.js` file:
+
+```js
+// tailwind.config.js
+module.exports = {
+    // ...
+    plugins: [require('@markusantonwolf/ta-foodtrucks')],
+    // ...
+}
+```
+
+### 3. Use it > 🌮
 
 ## Options
 
+### All options you can define
+
+You can define all options as data attributes - like this example.
+
+```html
+<div
+    class="ta-foodtrucks"
+    x-data="taFoodtrucks()"
+    x-init="init()"
+    x-cloak
+    data-endpoint="https://api.craftplaces.com/api/v1/dip/location/twodays"
+    data-locale="en-US"
+    data-min-height="10rem"
+    data-duration="1000"
+    data-today="Today"
+    data-tomorrow="Tomorrow"
+    data-seperator=" - "
+    data-suffix=""
+>
+</div>
+```
+
+Alternativly you can define all options as an object inside the init() function - like this example.
+
 ```javascript
-// endpoint url - based on Craftplaces Api service
-init('https://api.craftplaces.com/api/v1/dip/location/twodays', {
+init({
+    
+    // define your Craftplaces API endpoint
+    endpoint: 'https://api.craftplaces.com/api/v1/dip/location/twodays',
+    
     // define a translation for the relative date
     today: 'Today',
 
@@ -84,13 +128,11 @@ init('https://api.craftplaces.com/api/v1/dip/location/twodays', {
 
 ```javascript
 
-    {
-        // if plugin is initialized
-        initialized: false,
+    // if plugin is initialized
+    initialized: false,
 
-        // if there are no dates available
-        empty: false,
-    }
+    // if there are no dates available
+    empty: false,
 
     // get the start time for the index - dates[index]
     getStartTime(index)
@@ -121,6 +163,39 @@ init('https://api.craftplaces.com/api/v1/dip/location/twodays', {
     getGoogleMapsLink(index)
 
 ```
+
+In the following example you can see all available options (default values) for the TA-Foodtrucks plugin for Tailwind CSS. **To add your own configuration add ```taFoodtrucks```to ```theme```and ```variants```.** Your new settings will be merged with the default settings. To change the plugin behaviour in terms of how it adds the new classes as utilities you can add these options as objects to the default function.
+
+```js
+// tailwind.config.js
+module.exports = {
+    // ...
+    theme: {
+        // ...
+        taFoodtrucks: {
+            debug: false, // shows the new component classes in the console while building
+            export: false, // writes the new component classes into files ./public/utilities.css & /public/keyframes.css
+        },
+        // ...
+    },
+    variants: {
+        // ...
+        taFoodtrucks: ["responsive"], // empty the array if you don't need a responsive variant
+        // ...
+    },
+    // ...
+    plugins: [require('@markusantonwolf/ta-foodtrucks')],
+    // ...
+}
+```
+
+## All TA StyledPlugins
+
+-   [TA-Gallery](https://github.com/markusantonwolf/ta-gallery) - An image gallery with endless animation options.
+-   [TA-Pagination](https://github.com/markusantonwolf/ta-pagination) - A content pagination solution.
+-   [TA-Youtube](https://github.com/markusantonwolf/ta-youtube) - A YouTube video wrapper with auto playback and aspect ratio for the video player.
+-   [TA-Analytics](https://github.com/markusantonwolf/ta-analytics) - A plugin for every website that needs to have an easy and customizable Google Analytics “blocker”.
+-   [TA-Foodtrucks](https://github.com/markusantonwolf/ta-foodtrucks) - A plugin to show the next food truck and street food dates in your area.
 
 ## Local development
 
