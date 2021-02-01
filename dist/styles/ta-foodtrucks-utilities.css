@@ -1,0 +1,74 @@
+.ta-foodtrucks {
+	--ta-foodtrucks-object-fit: cover;
+	--ta-foodtrucks-anim-duration: 1000;
+	position: relative;
+	width: 100%;
+	min-height: var(--ta-foodtrucks-min-height);
+	text-align: left;
+	perspective: 1000px;
+	perspective-origin: center center;
+}
+
+.ta-foodtrucks-loading {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 2;
+	animation-timing-function: ease-in-out;
+	animation-fill-mode: both;
+	animation-duration: calc(var(--ta-foodtrucks-anim-duration) * 1ms);
+	transform-origin: center center;
+	backface-visibility: hidden;
+}
+
+.ta-foodtrucks-loading-out {
+	animation-name: ta-foodtrucks-loading-out;
+	animation-delay: 0s;
+}
+
+.ta-foodtrucks-error {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+}
+
+.ta-foodtrucks-logo {
+	position: relative;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+.ta-foodtrucks-logo-image {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	object-fit: var(--ta-foodtrucks-object-fit);
+}
+
+.ta-foodtrucks-details {
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+

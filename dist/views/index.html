@@ -16,9 +16,10 @@
                             <img src="/img/logo-ta-foodtrucks.png" alt="Logo TA Foodtrucks" class="w-full" />
                         </h1>
                         <p class="my-4">
-                            TA-Foodtrucks uses the Craftplaces Api demo data to show the next food truck and street food
-                            dates in your area. You can customize the endpoints to get all dates for a specific vendor,
-                            for a specific city or just for a location you are interested in.
+                            TA-Foodtrucks plugin shows the next food truck and street food dates in your area based on
+                            Craftplaces API. You can customize the endpoints to get all dates for a specific vendor, for
+                            a specific city or just for a location you are interested in. The light-weight (5.2kB),
+                            responsive and mobile first plugin is based on Tailwind CSS and Alpine JS.
                         </p>
                         <p class="my-4">
                             TA-Foodtrucks is 100% customizable and has endless animation options. You can use
@@ -38,16 +39,25 @@
                     </div>
                     <div class="flex items-center justify-center sm:border-2 border-gray-400 sm:rounded-lg p-4 sm:p-20">
                         <div
-    class="relative w-full lg:w-3/4 mx-auto bg-white rounded-lg text-left min-h-64 px-12 py-8"
+    class="ta-foodtrucks rounded-lg border border-gray-50 shadow-xl px-4 py-4 mb-8"
     x-data="taFoodtrucks()"
-    x-init="init('https://api.craftplaces.com/api/v1/dip/location/twodays', {locale:'de-DE', today: 'Heute', tomorrow: 'Morgen', seperator: ' - ', suffix: ' Uhr'})"
+    x-init="init()"
     x-cloak
+    data-endpoint="https://api.craftplaces.com/api/v1/dip/location/twodays"
+    data-locale="de-DE"
+    data-min-height="10rem"
+    data-duration="1000"
+    data-today="Heute"
+    data-tomorrow="Morgen"
+    data-seperator=" - "
+    data-suffix=" Uhr"
 >
-    <div
-        class="absolute flex items-center justify-center inset-0 w-full h-full text-gray-400 z-5"
-        x-show="!initialized"
-    >
-        <svg xmlns="http://www.w3.org/2000/svg" class="fill-current h-24 w-24" viewBox="0 0 100 100">
+    <div class="ta-foodtrucks-loading bg-white text-gray-400" :class="{'ta-foodtrucks-loading-out': initialized}" x-show="loading">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="fill-current h-24 w-24"
+            viewBox="0 0 100 100"
+        >
             <path
                 d="M27.136 52.495c1.377 12.625 12.734 21.747 25.359 20.37s21.747-12.735 20.37-25.36m-3.878.423c1.14 10.438-6.378 19.91-16.915 21.06s-19.92-6.478-21.06-16.916"
             >
@@ -63,34 +73,32 @@
             </path>
         </svg>
     </div>
-    <div class="absolute flex-center inset-0 w-full h-full z-5" x-show="initialized && empty">
+    <div class="ta-foodtrucks-error" x-show="!has_dates">
         Sorry, no dates available at the moment...
     </div>
-    <template x-for="(item, index) in dates" :key="item.id" x-if="initialized && !empty">
-        <div class="grid gap-4 grid-col-1 sm:grid-cols-4 items-center py-8">
-            <div class="relative rounded-full w-32 h-32 overflow-hidden border-2 border-cool-gray-200 mx-auto">
-                <img :src="item.logo.url.local" alt="asdas" class="absolute inset-0 h-full w-full object-cover" />
+    <template x-for="(item, index) in dates" :key="item.id" x-if="has_dates">
+        <div class="flex flex-col sm:flex-row items-center justify-between border-b-2 border-dashed border-gray-100 last:border-b-0 py-8 px-4">
+            <div class="ta-foodtrucks-logo rounded-full w-24 h-24 border border-gray-200 shadow-md sm:mr-8">
+                <img :src="item.logo.url.local" alt="asdas" class="ta-foodtrucks-logo-image" />
             </div>
-            <div class="sm:col-span-3 leading-tight">
-                <h4
-                    class="text-md text-blue-600 font-normal border-b-2 border-dashed border-cool-gray-300 -ml-2 pl-2 pb-2 mb-1"
-                >
+            <div class="ta-foodtrucks-details leading-tight">
+                <div class="text-base text-green-600 font-bold">
                     <span x-text="getWeekday(index, true)"></span>,
                     <span x-text="getDay(index)"></span>
-                </h4>
-                <h3 class="text-4xl font-light -ml-1">
+                </div>
+                <div class="text-4xl sm:text-5xl font-light mb-2">
                     <span x-text="getTime(index, ' - ', 'Uhr')"></span>
-                </h3>
-                <p class="text-base font-light mb-2">
+                </div>
+                <div class="text-base font-semibold">
                     <span x-text="item.name"></span>
                     : <span x-text="item.location.address.street"></span>
                     <span x-text="item.location.address.number"></span>,
                     <span x-text="item.location.address.city"></span>
-                </p>
-                <p class="text-base font-light mb-4">
+                </div>
+                <div class="text-sm font-regular mb-2">
                     <span class="font-normal" x-text="item.vendor.name.long"></span>:
                     <span x-text="item.vendor.offer"></span>
-                </p>
+                </div>
                 <div class="w-full flex flex-wrap justify-between font-normal text-sm">
                     <div class="flex flex-wrap items-center my-2">
                         <a
@@ -105,7 +113,9 @@
                             </svg>
                             <span class="ml-1"> What3Words </span></a
                         >
-                        <span class="ml-2"> (<span x-text="item.location.position.what3words"></span>) </span>
+                        <span class="ml-2">
+                            (<span x-text="item.location.position.what3words"></span>)
+                        </span>
                     </div>
                     <a
                         :href="getGoogleMapsLink(index)"
@@ -124,11 +134,6 @@
         </div>
     </template>
 </div>
-<style>
-    [x-cloak] {
-        display: none;
-    }
-</style>
 
                     </div>
                 </div>

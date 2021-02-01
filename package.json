@@ -1,32 +1,63 @@
 {
-  "name": "ta-foodtrucks",
-  "version": "1.0.0",
-  "description": "TA StylesPLUGINS stands for light-weight, responsive and mobile first. All plugins are based on Tailwind CSS and Alpine JS. All are 100% customizable with endless animation options.",
-  "main": "./dist/scripts/ta-foodtrucks.min.js",
-  "scripts": {
-    "develop": "npx gulp build",
-    "build": "NODE_ENV=production npx gulp build",
-    "serve": "npx gulp serve"
-  },
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/core": "^7.11.6",
-    "@babel/preset-env": "^7.11.5",
-    "@fullhuman/postcss-purgecss": "^3.0.0",
-    "alpinejs": "^2.7.0",
-    "autoprefixer": "^9.8.6",
-    "config": "^3.3.2",
-    "cssnano": "^4.1.10",
-    "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
-    "gulp-clean": "^0.4.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-file-include": "^2.2.2",
-    "gulp-live-server": "0.0.31",
-    "gulp-minify": "^3.1.0",
-    "gulp-postcss": "^9.0.0",
-    "gulp-print": "^5.0.2",
-    "tailwindcss": "^1.9.1"
-  }
+    "name": "@markusantonwolf/ta-foodtrucks",
+    "version": "1.0.0",
+    "description": "TA-Foodtrucks plugin shows the next food truck and street food dates in your area based on Craftplaces API. You can customize the endpoints to get all dates for a specific vendor, for a specific city or just for a location you are interested in. The light-weight (4.6kB), responsive and mobile first plugin is based on Tailwind CSS and Alpine JS.",
+    "main": "./src/plugin/index.js",
+    "scripts": {
+        "develop": "npx gulp build",
+        "build": "NODE_ENV=production npx gulp build",
+        "serve": "npx gulp serve",
+        "test": "NODE_ENV=test node ./src/plugin/index.js",
+        "upload": "npm publish --access public",
+        "patch": "npm version patch",
+        "minor": "npm version minor",
+        "major": "npm version major"
+    },
+    "author": {
+        "name": "Markus A. Wolf",
+        "email": "hello@markusantonwolf.com",
+        "url": "https://www.markusantonwolf.com/en/"
+    },
+    "homepage": "https://github.com/markusantonwolf/ta-foodtrucks#readme",
+    "bugs": {
+        "url": "https://github.com/markusantonwolf/ta-foodtrucks/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/markusantonwolf/ta-foodtrucks.git"
+    },
+    "license": "MIT",
+    "keywords": [
+        "tailwindcss",
+        "css",
+        "tailwind",
+        "foodtruck",
+        "food",
+        "truck",
+        "alpine",
+        "alpinejs"
+    ],
+    "devDependencies": {
+        "@babel/core": "^7.12.10",
+        "@babel/preset-env": "^7.12.11",
+        "@fullhuman/postcss-purgecss": "^3.1.3",
+        "alpinejs": "^2.8.0",
+        "autoprefixer": "^9.8.6",
+        "config": "^3.3.3",
+        "cssnano": "^4.1.10",
+        "gulp": "^4.0.2",
+        "gulp-babel": "^8.0.0",
+        "gulp-clean": "^0.4.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-file-include": "^2.3.0",
+        "gulp-live-server": "0.0.31",
+        "gulp-minify": "^3.1.0",
+        "gulp-postcss": "^9.0.0",
+        "gulp-print": "^5.0.2",
+        "tailwindcss": "^1.9.6"
+    },
+    "dependencies": {
+        "change-case": "^4.1.2",
+        "lodash": "^4.17.20"
+    }
 }

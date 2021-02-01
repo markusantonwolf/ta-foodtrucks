@@ -1,40 +1,68 @@
-window.taFoodtrucks = function () {
+window.taFoodtrucks = () => {
     return {
         initialized: false,
+        loading: true,
+        has_dates: false,
         empty: false,
         dates: [],
-        default: {
+        options: {
+            endpoint: '',
+            minHeight: '',
+            duration: 1000,
             today: 'Today',
             tomorrow: 'Tomorrow',
-            locale: 'en-US',
+            locale: 'de-DE',
             seperator: ' - ',
             suffix: '',
         },
-        init(endpoint = '', options) {
+        init(options) {
             if (typeof options !== 'undefined') {
                 if (typeof options !== 'object' || options instanceof Array) {
-                    console.warn('Options are in wrong type - should be object - default options been used')
+                    console.warn(
+                        'TA-Foodtrucks: Options are in wrong type - should be object - options options been used'
+                    )
                 }
                 for (let [key, value] of Object.entries(options)) {
-                    this.default[key] = value
+                    this.options[key] = value
                 }
             }
-            if (endpoint === '') {
-                console.error('No endpoint has been defined')
+
+            // checks if options are defined by data
+            for (let [key, value] of Object.entries(this.$el.dataset)) {
+                if (typeof this.options[key] !== 'undefined') {
+                    this.options[key] = value
+                }
+            }
+            if (this.options.endpoint === '') {
+                console.error('TA-Foodtrucks: No endpoint has been defined')
                 return false
             }
 
-            fetch(endpoint)
+            if (this.options.minHeight !== '') {
+                this.$el.style.setProperty('--ta-foodtrucks-min-height', this.options.minHeight)
+            }
+
+            this.$el.style.setProperty('--ta-foodtrucks-anim-duration', parseInt(this.options.duration))
+
+            this.$watch('initialized', (value) => {
+                if (value === true) {
+                    setTimeout(() => {
+                        this.loading = false
+                    }, parseInt(this.options.duration))
+                }
+            })
+
+            fetch(this.options.endpoint)
                 .then((response) => response.json())
                 .then((json) => {
-                    if (json.result === 0) {
-                        this.empty = true
-                        return false
+                    if (json.result.length === 0) {
+                        return
                     }
                     this.dates = json.result
 
                     // set foodtruck script to initialized
                     this.initialized = true
+                    this.has_dates = true
                 })
                 .catch((error) => {
                     console.warn(error)
@@ -42,7 +70,7 @@ window.taFoodtrucks = function () {
         },
         getStartTime(index) {
             const date = new Date(this.dates[index].date.start.date)
-            return date.toLocaleTimeString(this.default.locale, {
+            return date.toLocaleTimeString(this.options.locale, {
                 timeZone: this.dates[index].date.start.timezone,
                 hour: '2-digit',
                 minute: '2-digit',
@@ -50,7 +78,7 @@ window.taFoodtrucks = function () {
         },
         getEndTime(index) {
             const time = new Date(this.dates[index].date.end.date)
-            return time.toLocaleTimeString(this.default.locale, {
+            return time.toLocaleTimeString(this.options.locale, {
                 timeZone: this.dates[index].date.end.timezone,
                 hour: '2-digit',
                 minute: '2-digit',
@@ -65,30 +93,30 @@ window.taFoodtrucks = function () {
                 minute: '2-digit',
             }
             if (seperator === null) {
-                seperator = this.default.seperator
+                seperator = this.options.seperator
             }
             if (suffix === null) {
-                suffix = this.default.suffix
+                suffix = this.options.suffix
             }
             if (suffix !== '') {
                 suffix = ' ' + suffix
             }
-            const start_string = start.toLocaleTimeString(this.default.locale, options)
+            const start_string = start.toLocaleTimeString(this.options.locale, options)
             if (this.hasDifferentTimezone(index)) {
                 options.timeZoneName = 'short'
                 suffix = ''
             }
-            const end_string = end.toLocaleTimeString(this.default.locale, options)
+            const end_string = end.toLocaleTimeString(this.options.locale, options)
             return start_string + seperator + end_string + suffix
         },
         hasDifferentTimezone(index) {
             const remote_date = new Date(this.dates[index].date.start.date)
-            const remote_string = remote_date.toLocaleString(this.default.locale, {
+            const remote_string = remote_date.toLocaleString(this.options.locale, {
                 timeZone: this.dates[index].date.start.timezone,
                 timeZoneName: 'short',
             })
             const local_date = new Date(this.dates[index].date.start.date)
-            const locale_string = local_date.toLocaleString(this.default.locale, {
+            const locale_string = local_date.toLocaleString(this.options.locale, {
                 timeZoneName: 'short',
             })
             return remote_string !== locale_string
@@ -98,7 +126,7 @@ window.taFoodtrucks = function () {
                 return ''
             }
             const remote_date = new Date(this.dates[index].date.start.date)
-            const remote_string = remote_date.toLocaleString(this.default.locale, {
+            const remote_string = remote_date.toLocaleString(this.options.locale, {
                 timeZone: this.dates[index].date.start.timezone,
                 year: '2-digit',
                 timeZoneName: 'short',
@@ -115,19 +143,19 @@ window.taFoodtrucks = function () {
                 weekday: 'long',
             }
             if (relative !== true) {
-                return time.toLocaleString(this.default.locale, options)
+                return time.toLocaleString(this.options.locale, options)
             }
             if (time.getDate() === today.getDate()) {
-                return this.default.today
+                return this.options.today
             }
             if (time.getDate() === tomorrow.getDate()) {
-                return this.default.tomorrow
+                return this.options.tomorrow
             }
-            return time.toLocaleString(this.default.locale, options)
+            return time.toLocaleString(this.options.locale, options)
         },
         getDay(index) {
             const time = new Date(this.dates[index].date.start.date)
-            return time.toLocaleString(this.default.locale, {
+            return time.toLocaleString(this.options.locale, {
                 timeZone: this.dates[index].date.start.timezone,
                 day: '2-digit',
                 month: '2-digit',

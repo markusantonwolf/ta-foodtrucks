@@ -7,8 +7,11 @@ module.exports = {
         purgeLayersByDefault: true,
     },
     theme: {
+        taFoodtrucks: {
+            export: true,
+        },
         extend: {},
     },
     variants: {},
-    plugins: [],
+    plugins: [require('./src/plugin/index')],
 }

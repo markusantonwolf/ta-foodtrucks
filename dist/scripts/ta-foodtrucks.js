@@ -17,24 +17,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 window.taFoodtrucks = function () {
   return {
     initialized: false,
+    loading: true,
+    has_dates: false,
     empty: false,
     dates: [],
-    "default": {
+    options: {
+      endpoint: '',
+      minHeight: '',
+      duration: 1000,
       today: 'Today',
       tomorrow: 'Tomorrow',
-      locale: 'en-US',
+      locale: 'de-DE',
       seperator: ' - ',
       suffix: ''
     },
-    init: function init() {
+    init: function init(options) {
       var _this = this;
-
-      var endpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      var options = arguments.length > 1 ? arguments[1] : undefined;
 
       if (typeof options !== 'undefined') {
         if (_typeof(options) !== 'object' || options instanceof Array) {
-          console.warn('Options are in wrong type - should be object - default options been used');
+          console.warn('TA-Foodtrucks: Options are in wrong type - should be object - options options been used');
         }
 
         for (var _i = 0, _Object$entries = Object.entries(options); _i < _Object$entries.length; _i++) {
@@ -42,33 +44,56 @@ window.taFoodtrucks = function () {
               key = _Object$entries$_i[0],
               value = _Object$entries$_i[1];
 
-          this["default"][key] = value;
+          this.options[key] = value;
+        }
+      } // checks if options are defined by data
+
+
+      for (var _i2 = 0, _Object$entries2 = Object.entries(this.$el.dataset); _i2 < _Object$entries2.length; _i2++) {
+        var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+            _key = _Object$entries2$_i[0],
+            _value = _Object$entries2$_i[1];
+
+        if (typeof this.options[_key] !== 'undefined') {
+          this.options[_key] = _value;
         }
       }
 
-      if (endpoint === '') {
-        console.error('No endpoint has been defined');
+      if (this.options.endpoint === '') {
+        console.error('TA-Foodtrucks: No endpoint has been defined');
         return false;
       }
 
-      fetch(endpoint).then(function (response) {
+      if (this.options.minHeight !== '') {
+        this.$el.style.setProperty('--ta-foodtrucks-min-height', this.options.minHeight);
+      }
+
+      this.$el.style.setProperty('--ta-foodtrucks-anim-duration', parseInt(this.options.duration));
+      this.$watch('initialized', function (value) {
+        if (value === true) {
+          setTimeout(function () {
+            _this.loading = false;
+          }, parseInt(_this.options.duration));
+        }
+      });
+      fetch(this.options.endpoint).then(function (response) {
         return response.json();
       }).then(function (json) {
-        if (json.result === 0) {
-          _this.empty = true;
-          return false;
+        if (json.result.length === 0) {
+          return;
         }
 
         _this.dates = json.result; // set foodtruck script to initialized
 
         _this.initialized = true;
+        _this.has_dates = true;
       })["catch"](function (error) {
         console.warn(error);
       });
     },
     getStartTime: function getStartTime(index) {
       var date = new Date(this.dates[index].date.start.date);
-      return date.toLocaleTimeString(this["default"].locale, {
+      return date.toLocaleTimeString(this.options.locale, {
         timeZone: this.dates[index].date.start.timezone,
         hour: '2-digit',
         minute: '2-digit'
@@ -76,7 +101,7 @@ window.taFoodtrucks = function () {
     },
     getEndTime: function getEndTime(index) {
       var time = new Date(this.dates[index].date.end.date);
-      return time.toLocaleTimeString(this["default"].locale, {
+      return time.toLocaleTimeString(this.options.locale, {
         timeZone: this.dates[index].date.end.timezone,
         hour: '2-digit',
         minute: '2-digit'
@@ -94,35 +119,35 @@ window.taFoodtrucks = function () {
       };
 
       if (seperator === null) {
-        seperator = this["default"].seperator;
+        seperator = this.options.seperator;
       }
 
       if (suffix === null) {
-        suffix = this["default"].suffix;
+        suffix = this.options.suffix;
       }
 
       if (suffix !== '') {
         suffix = ' ' + suffix;
       }
 
-      var start_string = start.toLocaleTimeString(this["default"].locale, options);
+      var start_string = start.toLocaleTimeString(this.options.locale, options);
 
       if (this.hasDifferentTimezone(index)) {
         options.timeZoneName = 'short';
         suffix = '';
       }
 
-      var end_string = end.toLocaleTimeString(this["default"].locale, options);
+      var end_string = end.toLocaleTimeString(this.options.locale, options);
       return start_string + seperator + end_string + suffix;
     },
     hasDifferentTimezone: function hasDifferentTimezone(index) {
       var remote_date = new Date(this.dates[index].date.start.date);
-      var remote_string = remote_date.toLocaleString(this["default"].locale, {
+      var remote_string = remote_date.toLocaleString(this.options.locale, {
         timeZone: this.dates[index].date.start.timezone,
         timeZoneName: 'short'
       });
       var local_date = new Date(this.dates[index].date.start.date);
-      var locale_string = local_date.toLocaleString(this["default"].locale, {
+      var locale_string = local_date.toLocaleString(this.options.locale, {
         timeZoneName: 'short'
       });
       return remote_string !== locale_string;
@@ -133,7 +158,7 @@ window.taFoodtrucks = function () {
       }
 
       var remote_date = new Date(this.dates[index].date.start.date);
-      var remote_string = remote_date.toLocaleString(this["default"].locale, {
+      var remote_string = remote_date.toLocaleString(this.options.locale, {
         timeZone: this.dates[index].date.start.timezone,
         year: '2-digit',
         timeZoneName: 'short'
@@ -152,22 +177,22 @@ window.taFoodtrucks = function () {
       };
 
       if (relative !== true) {
-        return time.toLocaleString(this["default"].locale, options);
+        return time.toLocaleString(this.options.locale, options);
       }
 
       if (time.getDate() === today.getDate()) {
-        return this["default"].today;
+        return this.options.today;
       }
 
       if (time.getDate() === tomorrow.getDate()) {
-        return this["default"].tomorrow;
+        return this.options.tomorrow;
       }
 
-      return time.toLocaleString(this["default"].locale, options);
+      return time.toLocaleString(this.options.locale, options);
     },
     getDay: function getDay(index) {
       var time = new Date(this.dates[index].date.start.date);
-      return time.toLocaleString(this["default"].locale, {
+      return time.toLocaleString(this.options.locale, {
         timeZone: this.dates[index].date.start.timezone,
         day: '2-digit',
         month: '2-digit',
