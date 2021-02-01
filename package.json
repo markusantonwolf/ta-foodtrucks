@@ -1,6 +1,6 @@
 {
     "name": "@markusantonwolf/ta-foodtrucks",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "TA-Foodtrucks plugin shows the next food truck and street food dates in your area based on Craftplaces API. You can customize the endpoints to get all dates for a specific vendor, for a specific city or just for a location you are interested in. The light-weight (4.6kB), responsive and mobile first plugin is based on Tailwind CSS and Alpine JS.",
     "main": "./src/plugin/index.js",
     "scripts": {
