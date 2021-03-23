@@ -55,13 +55,14 @@ window.taFoodtrucks = () => {
             fetch(this.options.endpoint)
                 .then((response) => response.json())
                 .then((json) => {
+                    // set foodtruck script to initialized
+                    this.initialized = true
+
+                    // if no results end script
                     if (json.result.length === 0) {
                         return
                     }
                     this.dates = json.result
-
-                    // set foodtruck script to initialized
-                    this.initialized = true
                     this.has_dates = true
                 })
                 .catch((error) => {
