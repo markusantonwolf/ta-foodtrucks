@@ -3,7 +3,7 @@ window.taFoodtrucks = () => {
         initialized: false,
         loading: true,
         has_dates: false,
-        empty: false,
+        error: false,
         dates: [],
         options: {
             endpoint: '',
@@ -65,6 +65,7 @@ window.taFoodtrucks = () => {
                     this.has_dates = true
                 })
                 .catch((error) => {
+                    this.error = true
                     console.warn(error)
                 })
         },
