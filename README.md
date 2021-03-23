@@ -128,11 +128,20 @@ init({
 
 ```javascript
 
-    // if plugin is initialized
+    // Gives you the information if the data is valid and can be used.
     initialized: false,
 
-    // if there are no dates available
-    empty: false,
+    // Gives you the information if the data is loading.
+    loading: false,
+
+    // Gives you the information if there are dates to show.
+    has_dates: false,
+
+    //  Gives you the information if there was an error while fetching the data from the Craftplaces API.
+    error: false,
+
+    //  Gives you all dates provided by the Craftplaces API.
+    dates: [],
 
     // get the start time for the index - dates[index]
     getStartTime(index)
